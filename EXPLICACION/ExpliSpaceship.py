@@ -27,10 +27,16 @@ class Spaceship(Sprite):
             self.move_down() # llamamos al metodo mover abajo
 
     def move_left(self):
-        self.rect.x -=  self.SHIP_SPEED # le restamos a la izquierda en x segun la constatne de velocidad
+        if self.rect.x > -40:# si x es mayor que el tamaño de la nave quiere decir que todavia esta en el limite izquierdo de x que es 0
+            self.rect.x -= 10 # entra  y desplaza 10 unidades a la izquierda a x
+        else: # en caso contrario de que x sea negativo
+            self.rect.x += SCREEN_WIDTH # Le sumo todo el tamñano psoitivo haciendo que reaparezca el jugador al lado derecho y como va en negativo sigue disminuyendo en 10 segun el if
 
     def move_right(self):
-        self.rect.x +=  self.SHIP_SPEED  # le sumamos a la derecha en x segun la constante
+        if self.rect.x < SCREEN_WIDTH: # si x es menor que la pantalla quiere decir que todavia esta en el limite es decir detro dela pantalla
+            self.rect.x += 10 # y aumenta 10 para que la nave se mueva a la derecha
+        else: # en caso contrario de que x sea mayor que el ancho de la pantalla
+            self.rect.x -= SCREEN_WIDTH # le resto todo el ancho de la pantalla teletraportando el jugador al lado izquierdo
 
     def move_up(self):
         self.rect.y -=  self.SHIP_SPEED  # le restamos en y para que suba 
