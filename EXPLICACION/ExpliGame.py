@@ -1,4 +1,5 @@
 import pygame
+from game.components.enemies.enemy_manager import EnemyManager #importamos enemigo para crearlo 
 
 from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from game.components.spaceship import Spaceship # importamos nave
@@ -15,6 +16,7 @@ class Game:
         self.x_pos_bg = 0 # POSICION DE X
         self.y_pos_bg = 0 # POSICION DE Y
         self.player = Spaceship() # creamos jugador como nave
+        self.enemy_manager = EnemyManager() # Creamos enemigo
 
     def run(self): # Me ejecuta en main, inicializa el juego
         # Game loop: events - update - draw
@@ -34,14 +36,15 @@ class Game:
     def update(self):
         user_input = pygame.key.get_pressed() # Creamos la entrada de teclado la cual vamos a exportar a spaceship para hacer la logica de movimiento
         self.player.update(user_input) # pasamos el input y lo actualizamos en jugador para mover la nave
-    
+        self.enemy_manager.update()# crea un enemigo en el juego
     def draw(self):
         self.clock.tick(FPS) # Actulizo 30 frame por cada segundo del juego 
         self.screen.fill((255, 255, 255)) # inicializo la pantalla en blanco
         self.draw_background() # metodo personalizado abajo que permite que pueda dibujar en al pantalla
         self.player.draw(self.screen) # depues de dibujar el fondo dibujamos la nave le pasamos como parametro la pantalla para que se dibuje
+        self.enemy_manager.draw(self.screen) # despues de creado ahora lo dibujo en pantalla
         pygame.display.update()
-        pygame.display.flip()
+        #pygame.display.flip()
 
     def draw_background(self):
         image = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT)) # le pasamos el fondo con las medidas
