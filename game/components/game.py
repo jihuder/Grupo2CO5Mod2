@@ -1,13 +1,14 @@
 import pygame
+from game.components.enemies.enemy_manager import EnemyManager
 
 from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
-from game.components.spaceship import Spaceship 
+from game.components.spaceship import Spaceship
 
 class Game:
     def __init__(self):
-        pygame.init() 
-        pygame.display.set_caption(TITLE) 
-        pygame.display.set_icon(ICON) 
+        pygame.init()
+        pygame.display.set_caption(TITLE)
+        pygame.display.set_icon(ICON)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.playing = False
@@ -15,13 +16,16 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 0
         self.player = Spaceship()
+        self.enemy_manager = EnemyManager()
+
 
     def run(self):
+        # Game loop: events - update - draw
         self.playing = True
         while self.playing:
-            self.events() 
+            self.events()
             self.update()
-            self.draw() 
+            self.draw()
         pygame.display.quit()
         pygame.quit()
 
@@ -33,14 +37,16 @@ class Game:
     def update(self):
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
-    
+        self.enemy_manager.update()
+
     def draw(self):
-        self.clock.tick(FPS) 
+        self.clock.tick(FPS)
         self.screen.fill((255, 255, 255))
         self.draw_background()
         self.player.draw(self.screen)
+        self.enemy_manager.draw(self.screen)
         pygame.display.update()
-        pygame.display.flip()
+        #pygame.display.flip()
 
     def draw_background(self):
         image = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -49,5 +55,6 @@ class Game:
         self.screen.blit(image, (self.x_pos_bg, self.y_pos_bg - image_height))
         if self.y_pos_bg >= SCREEN_HEIGHT:
             self.screen.blit(image, (self.x_pos_bg, self.y_pos_bg - image_height))
-            self.y_pos_bg = 0 
+            self.y_pos_bg = 0
+            
         self.y_pos_bg += self.game_speed
