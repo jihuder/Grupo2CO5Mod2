@@ -95,8 +95,9 @@ class Game:
         # necesitamos diferenciar si es la primera vez que juego o si ya estuve en el juego es decir si ya mori una vez
         # ya que  mostramos diferentes menus 
         if self.death_count > 0: # si no he muerto  es decir que es  la primer vez que inice el juego
-            self.menu.update_message("Game Over")
+            self.menu.update_message("keep playing")
             self.menu.draw_score(self, (0, 0, 0))
+            self.menu.draw_deaths(self)
         icon = pygame.transform.scale (ICON, (80,120)) # traigo un ICON y lo pongo a escala segun  mis medidas
         self.screen.blit(icon, (half_screen_width - 50, half_screen_height -120)) # dibujo el icono y le doy ubicacion 
 
