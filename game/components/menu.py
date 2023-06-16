@@ -45,7 +45,7 @@ class Menu:
 
     def draw_deaths(self, game, coord_x = SCREEN_WIDTH - 300, coord_y = 25):
         font = pygame.font.Font(FONT_STYLE, 16)
-        text = font.render(f'LIVES: {game.death_count}', True, (0, 0, 0))
+        text = font.render(f'Deaths: {game.death_count}', True, (0, 0, 0))
         text_rect = text.get_rect()
         text_rect.center = ((coord_x, coord_y))
         game.screen.blit(text, text_rect)
