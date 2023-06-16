@@ -11,6 +11,7 @@ class BulletManager:
             bullet.update(self.enemy_bullets)
 
             if bullet.rect.colliderect(game.player.rect) and bullet.owner == 'enemy':
+                game.death_count += 1 # agrego una muerte si la bala impacta al jugador
                 self.enemy_bullets.remove(bullet)
                 game.playing = False
                 pygame.time.delay(1000)
@@ -22,6 +23,7 @@ class BulletManager:
 
             for enemy in game.enemy_manager.enemies:
                 if bullet.rect.colliderect(enemy.rect) and bullet.owner == 'player':
+                    game.score += 100 # si mi bala impacta a un enemigo gono 100
                     self.bullets.remove(bullet)
                     game.enemy_manager.enemies.remove(enemy) 
         
@@ -38,3 +40,7 @@ class BulletManager:
 
         if bullet.owner == 'player':
             self.bullets.append(bullet)
+
+    def reset(self):
+        self.bullets = []
+        self.enemy_bullets = []
