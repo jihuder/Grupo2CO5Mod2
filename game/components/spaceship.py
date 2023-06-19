@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-from game.utils.constants import SCREEN_HEIGHT, SCREEN_WIDTH, SPACESHIP, DELAY
+from game.utils.constants import DEFAULT_TYPE, SCREEN_HEIGHT, SCREEN_WIDTH, SPACESHIP, DELAY
 from game.components.bullets.bullet import Bullet
 
 class Spaceship(Sprite):
@@ -18,6 +18,9 @@ class Spaceship(Sprite):
         self.rect.y = self.Y_POS
         self.type = 'player'
         self.shooting_time = DELAY
+        self.power_up_type = DEFAULT_TYPE
+        self.has_power_up = False
+        self.power_time_up = 0
 
 
 
@@ -62,3 +65,7 @@ class Spaceship(Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
+
+    def set_image(self, size = (SHIP_WIDTH, SHIP_HEIGHT), image = SPACESHIP):
+        self.image = image
+        self.image = pygame.transform.scale(self.image, size)

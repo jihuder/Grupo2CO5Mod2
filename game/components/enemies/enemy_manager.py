@@ -9,7 +9,7 @@ class EnemyManager:
     def update(self, game):
         self.add_enemy()
         for enemy in self.enemies:
-            enemy.update(self, game)
+            enemy.update(self.enemies, game)
 
     def draw(self, screen):
         for enemy in self.enemies:
@@ -17,7 +17,8 @@ class EnemyManager:
 
     def add_enemy(self):
         if len(self.enemies) < 3 and time.time() - self.last_enemy_time >= 2:
-            enemy = Enemy()
+            enemy_type = random.randint(1, 2)
+            enemy = Enemy(enemy_type)
             enemy.x = random.randint(-SCREEN_WIDTH, SCREEN_WIDTH)  
             enemy.y = random.randint(-SCREEN_HEIGHT, SCREEN_HEIGHT)  
             self.enemies.append(enemy)

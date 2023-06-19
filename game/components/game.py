@@ -2,6 +2,7 @@ import pygame
 from game.components.enemies.enemy_manager import EnemyManager
 from game.components.bullets.bullet_manager import BulletManager
 from game.components.menu import Menu
+from game.components.power_ups.power_up_manager import PowerUpManager
 
 from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE, DEFAULT_TYPE
 from game.components.spaceship import Spaceship
@@ -21,6 +22,7 @@ class Game:
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
+        self.power_up_manager = PowerUpManager()
         self.death_count = 0 # se le agrega al juego el contador de muertes
         self.score = 0  # se le agrega el contador de puntaje
 
@@ -59,6 +61,7 @@ class Game:
         self.player.update(user_input, self)
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
+        self.power_up_manager.update(self)
 
 
     def draw(self):
@@ -69,6 +72,8 @@ class Game:
         self.enemy_manager.draw(self.screen)
         self.bullet_manager.draw(self.screen)
         self.menu.draw_score(self) # necesitamos dijujar ahora el score
+        self.power_up_manager.draw(self.screen)
+        self.draw_power_up_time()
         pygame.display.update()
         #pygame.display.flip()
 
@@ -107,3 +112,16 @@ class Game:
     def update_score(self): # aumentamos el puntaje 
         self.score += 1
 
+    def draw_power_up_time(self):
+        if self.player.has_power_up:
+            time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/1000, 2)
+
+            if time_to_show >=0:
+                font = pygame.font.Font(FONT_STYLE, 30)
+                text = font.render(f'{self.player.power_up_type.capitalize()} is enable for {time_to_show} seconds', True, (255,255,255))
+                text_rect = text.get_rect()
+                self.screen.blit(text,(540, 50))
+            else:
+                self.player_has_power_up = False
+                self.player.power_up_type = DEFAULT_TYPE
+                self.player.set_image()

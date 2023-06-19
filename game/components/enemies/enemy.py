@@ -2,7 +2,7 @@ import random
 import pygame
 from pygame.sprite import Sprite
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import ENEMY_1, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
 
 class Enemy(Sprite):
     SHIP_WIDTH = 40
@@ -12,9 +12,11 @@ class Enemy(Sprite):
     SPEED_Y = 1
     SPEED_X = 5
     MOV_X = {0: 'left', 1: 'right'}
+    IMAGE = {1: ENEMY_1, 2:ENEMY_2 }
+    
 
-    def __init__(self):
-        self.image = ENEMY_1
+    def __init__(self, image = 1):
+        self.image = self.IMAGE[image]
         self.image = pygame.transform.scale(self.image,(self.SHIP_WIDTH, self.SHIP_HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.y = self.Y_POS
@@ -26,6 +28,7 @@ class Enemy(Sprite):
         self.index = 0
         self.type = 'enemy'
         self.shooting_time = random.randint(30, 50)
+        self.angle = 0
 
     def update(self, ships, game):
         self.rect.y += self.speed_y
