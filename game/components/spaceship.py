@@ -18,9 +18,9 @@ class Spaceship(Sprite):
         self.rect.y = self.Y_POS
         self.type = 'player'
         self.shooting_time = DELAY
-        self.power_up_type = DEFAULT_TYPE
-        self.has_power_up = False
-        self.power_time_up = 0
+        self.power_up_type = DEFAULT_TYPE # 1 DE QUE TIPO DE PODER son los tres atributos que se crearon cuando el player colicione con el poder
+        self.has_power_up = False # 2 SI EL PLAYER TIENO O NO EL PODER
+        self.power_time_up = 0 # 3 EL TIEMPO DE DURACION DEL PODER
 
 
 
@@ -66,6 +66,7 @@ class Spaceship(Sprite):
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
+    # Se creo el metodo de cambio de imagen para saber cuando tenga el poder el usuario
     def set_image(self, size = (SHIP_WIDTH, SHIP_HEIGHT), image = SPACESHIP):
         self.image = image
         self.image = pygame.transform.scale(self.image, size)

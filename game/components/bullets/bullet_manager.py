@@ -12,7 +12,7 @@ class BulletManager:
             bullet.update(self.enemy_bullets)
 
             if bullet.rect.colliderect(game.player.rect) and bullet.owner == 'enemy':
-                if game.player.power_up_type != SHIELD_TYPE:
+                if game.player.power_up_type != SHIELD_TYPE: # SI TENGO O NO TENGO ESL ESCUDO
                     game.death_count += 1 # agrego una muerte si la bala impacta al jugador
                     self.enemy_bullets.remove(bullet)
                     game.playing = False

@@ -22,7 +22,7 @@ class Game:
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
-        self.power_up_manager = PowerUpManager()
+        self.power_up_manager = PowerUpManager() # instanciamos power ap
         self.death_count = 0 # se le agrega al juego el contador de muertes
         self.score = 0  # se le agrega el contador de puntaje
 
@@ -61,7 +61,7 @@ class Game:
         self.player.update(user_input, self)
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
-        self.power_up_manager.update(self)
+        self.power_up_manager.update(self) # Actualizamos power app 
 
 
     def draw(self):
@@ -72,8 +72,8 @@ class Game:
         self.enemy_manager.draw(self.screen)
         self.bullet_manager.draw(self.screen)
         self.menu.draw_score(self) # necesitamos dijujar ahora el score
-        self.power_up_manager.draw(self.screen)
-        self.draw_power_up_time()
+        self.power_up_manager.draw(self.screen) # DIBUJAMOS EL PODER EN CONSOLA
+        self.draw_power_up_time() # Dibujamos el tiempo que se visualice
         pygame.display.update()
         #pygame.display.flip()
 
@@ -112,16 +112,16 @@ class Game:
     def update_score(self): # aumentamos el puntaje 
         self.score += 1
 
-    def draw_power_up_time(self):
-        if self.player.has_power_up:
-            time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/1000, 2)
+    def draw_power_up_time(self): # dibujamos en pantalla
+        if self.player.has_power_up: # si el player tiene el poder
+            time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/1000, 2) #Mostramos en pantalla
 
-            if time_to_show >=0:
-                font = pygame.font.Font(FONT_STYLE, 30)
-                text = font.render(f'{self.player.power_up_type.capitalize()} is enable for {time_to_show} seconds', True, (255,255,255))
-                text_rect = text.get_rect()
-                self.screen.blit(text,(540, 50))
-            else:
-                self.player_has_power_up = False
-                self.player.power_up_type = DEFAULT_TYPE
-                self.player.set_image()
+            if time_to_show >=0:# si el tiempo comenzo a andar lomuestro en pantalla
+                font = pygame.font.Font(FONT_STYLE, 30) # le damos fuente
+                text = font.render(f'{self.player.power_up_type.capitalize()} is enable for {time_to_show} seconds', True, (255,255,255)) # formateamos
+                text_rect = text.get_rect() # le damos entidad
+                self.screen.blit(text,(540, 50)) # lo pintamos en pantalla
+            else: # En caso que el tiempo sea menor ??? quiere decir que termino
+                self.player_has_power_up = False # le quitamos el poder
+                self.player.power_up_type = DEFAULT_TYPE # LE QUITAMOS EL TIPO
+                self.player.set_image() # LE CAMBIAMOS LA IMAGEN POR LA IMAGEN  EN QUE EMPEZAMOS EL JUEGO
