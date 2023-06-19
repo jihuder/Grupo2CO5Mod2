@@ -21,7 +21,7 @@ class PowerUpManager: # Manejamos los poderes y los instanciamos
 
         for power_up in self.power_ups: # Listo los poderes
             power_up.update(game.game_speed, self.power_ups) # si el poder que tome le doy sus acciones en pantalla para que la recorra
-
+            
             # gestionamos el choque con el poder para adquirirlo
             if game.player.rect.colliderect(power_up.rect): # si colicionamos con el poder
                 power_up.start_time = pygame.time.get_ticks() # Le damos un tiempo de duracion de cuando comenzo
