@@ -44,6 +44,7 @@ class Game:
         self.score = 0   
         self.bullet_manager.reset()  #reseteamos los manager ya que limpiamos las diferentes listas que tienen
         self.enemy_manager.reset() #implementar
+        self.power_up_manager.reset()
         self.playing = True
         while self.playing:
             self.events()

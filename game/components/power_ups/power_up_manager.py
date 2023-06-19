@@ -35,4 +35,7 @@ class PowerUpManager:
     def generate_power_up(self, game):
         power_up = Shield() 
         self.when_appears += random.randint(5000, 10000)
-        self.power_ups.append(power_up) 
+        self.power_ups.append(power_up)
+
+    def reset(self):
+        self.power_ups = [] 
